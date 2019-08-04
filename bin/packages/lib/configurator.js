@@ -30,35 +30,53 @@ function syncConfigurationToDisk() {
 }
 
 function startInitInquirerProcess() {
-    inquirer.prompt([
+    inquirer.prompt(
         {
             type: 'list',
-            name: 'smtp_server',
-            message: 'Please select your SMTP server:',
+            name: 'smtp_service',
+            message: 'Please select your SMTP service:',
             choices: [
                 'gmail',
                 'qq',
+                'other',
             ]
-        },
+        }
+    ).then(answers => {
+        if (answers.smtp_service === 'other') {
+            inquirer.prompt({
+                type: 'input',
+                name: 'smtp_custom_service',
+                message: 'Please input your custom service:',
+            }).then(answers => {
+                continueInitInquirerProcessWithService(answers.smtp_custom_service)
+            })
+        } else {
+            continueInitInquirerProcessWithService(answers.smtp_service)
+        }
+    })
+}
+
+function continueInitInquirerProcessWithService(smtp_service) {
+    inquirer.prompt([
         {
             type: 'input',
             name: 'from',
-            message: 'Input the address used to send the email:',
+            message: 'Please input the address used to send the email:',
         },
         {
             type: 'input',
             name: 'to',
-            message: 'Input the recipients(seperated by commas):',
+            message: 'Please input the recipients(seperated by commas):',
         },
         {
             type: 'password',
             name: 'password',
-            message: 'Input your application specific password:'
+            message: 'Please input your application specific password(note it\'s not your account password):'
         },
         {
             type: 'input',
             name: 'subject',
-            message: 'Input the subject:'
+            message: 'Please input the subject:'
         }
     ]).then(answers => {
         configuration = {}
@@ -67,8 +85,8 @@ function startInitInquirerProcess() {
         }
         shell.mkdir(mmConfigHome)
         shell.touch(mmConfigFile)
-        if (typeof answers.smtp_server !== 'undefined') {
-            configuration.smtp_server = answers.smtp_server
+        if (typeof smtp_service !== 'undefined') {
+            configuration.smtp_service = smtp_service
         }
         if (typeof answers.from !== 'undefined') {
             configuration.from = answers.from

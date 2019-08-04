@@ -12,7 +12,7 @@ function convertMarkdownToHtml(markdownPath) {
 
 function sendEmail(html) {
     var transporter = nodemailer.createTransport({
-    service: configuration.smtp_server,
+    service: configuration.smtp_service,
     auth: {
         user: configuration.from,
         pass: configuration.password

@@ -10,30 +10,34 @@ program.version('1.0.0')
 program.command('init')
         .description('Init mm')
         .action(function () {
-          configurator.init()
+          configurator.initConfiguration()
         })
 program.command('config')
         .description('Config mm')
+        .option('-s, --service <service>', 'Config the SMTP service')
         .option('-f, --from <from>', 'Config the from address')
         .option('-t, --to <to...>','Config the to addresses, multi addresses can be seperated by commas')
-        .option('-s, --subject <subject>', 'Config the subject')
+        .option('-b, --subject <subject>', 'Config the subject')
         .option('-p, --password <password>', 'Config password')
         .action(function (options) {
           if (!configurator.isConfigurationValid()) {
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
             program.help()
           }
+          if (typeof options.service !== 'undefined') {
+            configurator.updateConfiguration('smtp_service', options.service)
+          }
           if (typeof options.from !== 'undefined') {
-            configurator.update('from', options.from)
+            configurator.updateConfiguration('from', options.from)
           }
           if (typeof options.to !== 'undefined') {
-            configurator.update('to', options.to)
+            configurator.updateConfiguration('to', options.to)
           }
           if (typeof options.subject !== 'undefined') {
-            configurator.update('subject', options.subject)
+            configurator.updateConfiguration('subject', options.subject)
           }
           if (typeof options.password !== 'undefined') {
-            configurator.update('password', options.password)
+            configurator.updateConfiguration('password', options.password)
           }
         })
 program.command('send <path>')
