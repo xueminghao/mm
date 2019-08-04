@@ -77,6 +77,11 @@ function continueInitInquirerProcessWithService(smtp_service) {
             type: 'input',
             name: 'subject',
             message: 'Please input the subject:'
+        },
+        {
+            type: 'confirm',
+            name: 'isReply',
+            message: 'Should treat your email a reply of the specific subject? This may keep your email in a single thread.'
         }
     ]).then(answers => {
         configuration = {}
@@ -98,7 +103,11 @@ function continueInitInquirerProcessWithService(smtp_service) {
             configuration.password = answers.password
         }
         if (typeof answers.subject !== 'undefined') {
-            configuration.subject = answers.subject
+            let subject = answers.subject
+            if (answers.isReply === true) {
+                subject = 'Re: ' + subject
+            }
+            configuration.subject = subject
         }
         syncConfigurationToDisk()
     })
