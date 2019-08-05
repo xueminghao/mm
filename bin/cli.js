@@ -14,12 +14,12 @@ program.command('init')
         })
 program.command('config')
         .description('Config mm')
-        .option('-l, --list', 'List the current configuration')
-        .option('-s, --service <service>', 'Config the SMTP service')
-        .option('-f, --from <from>', 'Config the from address')
-        .option('-t, --to <to...>','Config the to addresses, multi addresses can be seperated by commas')
-        .option('-b, --subject <subject>', 'Config the subject')
-        .option('-p, --password <password>', 'Config password')
+        .option('-l, --list', 'list the current configuration')
+        .option('-s, --service <service>', 'config the SMTP service you will use to send your email')
+        .option('-f, --from <from>', 'config the from address')
+        .option('-t, --to <to...>','config the to addresses, multi addresses should be seperated by commas')
+        .option('-b, --subject <subject>', 'config the subject')
+        .option('-p, --password <password>', 'config password. Note it is the app specific password not the account password. For example if you are using gmail service, you can check this link for help: https://support.google.com/accounts/answer/185833?hl=en')
         .action(function (options) {
           if (!configurator.isConfigurationValid()) {
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
@@ -45,14 +45,14 @@ program.command('config')
             configurator.updateConfiguration('password', options.password)
           }
         })
-program.command('send <path>')
+program.command('send <markdown-path>')
         .description('send email')
-        .action(function (path) {
+        .action(function (markdown-path) {
           if (!configurator.isConfigurationValid()) {
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
             program.help()
           }
-          sender.send(path)
+          sender.send(markdown-path)
         })
 
 program.parse(process.argv)
