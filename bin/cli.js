@@ -14,6 +14,7 @@ program.command('init')
         })
 program.command('config')
         .description('Config mm')
+        .option('-l, --list', 'List the current configuration')
         .option('-s, --service <service>', 'Config the SMTP service')
         .option('-f, --from <from>', 'Config the from address')
         .option('-t, --to <to...>','Config the to addresses, multi addresses can be seperated by commas')
@@ -23,6 +24,10 @@ program.command('config')
           if (!configurator.isConfigurationValid()) {
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
             program.help()
+          }
+          if (options.list === true) {
+            console.log(chalk.gray('Below is the current configuration:\n'),configurator.configuration)
+            return
           }
           if (typeof options.service !== 'undefined') {
             configurator.updateConfiguration('smtp_service', options.service)
