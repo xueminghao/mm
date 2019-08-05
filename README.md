@@ -47,6 +47,41 @@ Use ``` mm send <markdown-path>``` to send the specified markdown mail.
 Use ``` mm -h``` to see more detailed information
 # Samples
 
+Given the following markdown file:
 ```
-mm send 2019-08-02.md
+# 项目
+* 背景：****
+* 项目成员：****
+* 计划（一期）
+
+    * 文本
+* 本周工作
+    
+    1. 任务1
+
+            yarn global add markdown-mailer
+    1. 文本 ```代码``` 
+    1. 列表
+        
+        * 文本
+        * 文本
+
+# 日常
+
+1. 文本
+2. 文本
+
+
+# 下周计划
+
+1. 文本
+1. 文本
 ```
+
+then run:
+```
+mm send test.md
+```
+
+you will receive the following like mail:
+![mac-mail](res/mac-mail.png)
