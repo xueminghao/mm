@@ -2,6 +2,7 @@
   "name": "markdown-mailer",
   "version": "1.0.8",
   "description": "A markdown mailer",
+  "keywords": ["markdown", "mailer", "mail"],
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
