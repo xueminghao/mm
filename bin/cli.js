@@ -52,7 +52,7 @@ program.command('send <markdown-path>')
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
             program.help()
           }
-          sender.send(markdown-path)
+          sender.send(markdownPath)
         })
 
 program.parse(process.argv)
