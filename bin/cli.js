@@ -47,7 +47,7 @@ program.command('config')
         })
 program.command('send <markdown-path>')
         .description('send email')
-        .action(function (markdown-path) {
+        .action(function (markdownPath) {
           if (!configurator.isConfigurationValid()) {
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
             program.help()
