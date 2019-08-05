@@ -5,7 +5,7 @@ const sender = require('./packages/lib/sender')
 const chalk = require('chalk')
 
 const program = require('commander')
-program.version('1.0.7')
+program.version('1.0.8')
 
 program.command('init')
         .description('Init mm')
