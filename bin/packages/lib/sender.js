@@ -1,13 +1,26 @@
 const fs = require('fs')
+const path = require('path')
 const showdown = require('showdown')
 const nodemailer = require('nodemailer')
 const configuration = require('./configurator').configuration
+
+const headPath = path.join(__dirname, '../res/head')
+const footPath = path.join(__dirname, '../res/foot')
 
 function convertMarkdownToHtml(markdownPath) {
     const text = fs.readFileSync(markdownPath, 'utf8')
     const converter = new showdown.Converter()
     const html = converter.makeHtml(text);
     return html
+}
+
+function inlineStyle(html) {
+    const head = fs.readFileSync(headPath)
+    const foot = fs.readFileSync(footPath)
+    let styledHTML = head
+    styledHTML += html
+    styledHTML += foot
+    return styledHTML
 }
 
 function sendEmail(html) {
@@ -35,7 +48,8 @@ function sendEmail(html) {
 }
 
 function send(markdownPath) {
-   const html = convertMarkdownToHtml(markdownPath)
+   let html = convertMarkdownToHtml(markdownPath)
+   html = inlineStyle(html)
    sendEmail(html)
 }
 
