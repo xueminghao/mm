@@ -23,18 +23,24 @@ function inlineStyle(html) {
     return styledHTML
 }
 
-function sendEmail(html) {
+function sendEmail(html, options) {
+    const { service = configuration.smtp_service,
+      from = configuration.from,
+      password = configuration.password,
+      to = configuration.to,
+      subject = configuration.subject,
+    } = options
     var transporter = nodemailer.createTransport({
-    service: configuration.smtp_service,
+    service: service,
     auth: {
-        user: configuration.from,
-        pass: configuration.password
+        user: from,
+        pass: password
     }
     });
     var mailOptions = {
-        from: configuration.from,
-        to: configuration.to,
-        subject: configuration.subject,
+        from: from,
+        to: to,
+        subject: subject,
         html: html
       };
       console.log('sending...')
@@ -47,10 +53,10 @@ function sendEmail(html) {
       });
 }
 
-function send(markdownPath) {
+function send(markdownPath, options) {
    let html = convertMarkdownToHtml(markdownPath)
    html = inlineStyle(html)
-   sendEmail(html)
+   sendEmail(html, options)
 }
 
 module.exports = {

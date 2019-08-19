@@ -47,12 +47,17 @@ program.command('config')
         })
 program.command('send <markdown-path>')
         .description('send email')
-        .action(function (markdownPath) {
+        .option('-s, --service <service>', 'set the SMTP service for the next send')
+        .option('-f, --from <from>', 'set the from address for the next send')
+        .option('-t, --to <to...>','set the to addresses for the next send')
+        .option('-b, --subject <subject>', 'set the subject for the next send')
+        .option('-p, --password <password>', 'set the password for the next send')
+        .action(function (markdownPath, options) {
           if (!configurator.isConfigurationValid()) {
             console.log(chalk.red('Please set up your email configuration use mm init first!'))
             program.help()
           }
-          sender.send(markdownPath)
+          sender.send(markdownPath, options)
         })
 
 program.parse(process.argv)
