@@ -1,3 +1,12 @@
+## [1.0.9](https://github.com/xueminghao/mm/compare/v1.0.8...v1.0.9) (2019-08-19)
+
+
+### Features
+
+* Add ability to change options for the current send action ([a8d8f76](https://github.com/xueminghao/mm/commit/a8d8f76))
+
+
+
 ## [1.0.8](https://github.com/xueminghao/mm/compare/1.0.7...1.0.8) (2019-08-05)
 
 
