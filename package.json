@@ -2,9 +2,14 @@
   "name": "markdown-mailer",
   "version": "1.0.8",
   "description": "A markdown mailer",
-  "keywords": ["markdown", "mailer", "mail"],
+  "keywords": [
+    "markdown",
+    "mailer",
+    "mail"
+  ],
   "main": "index.js",
   "scripts": {
+    "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add CHANGELOG.md",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -30,5 +35,8 @@
   },
   "bin": {
     "mm": "./bin/cli.js"
+  },
+  "devDependencies": {
+    "conventional-changelog-cli": "^2.0.23"
   }
 }
